@@ -9,6 +9,13 @@ import DashHome from "../Pages/dashboard/DashHome";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import ManageUsers from "../Pages/dashboard/Admin/ManageUsers";
+import CashIn from "../Pages/dashboard/Agent/CashIn";
+import CashOut from "../Pages/dashboard/Users/CashOut";
+import SendMoney from "../Pages/dashboard/Users/SendMoney";
+import AdminRoute from "./AdminRoute";
+import AgentRoute from "./AgentRoute";
+import ManageAgents from "../Pages/dashboard/Admin/ManageAgents";
 
 
   export const router = createBrowserRouter([
@@ -37,8 +44,28 @@ import PrivateRoutes from "./PrivateRoutes";
      children:[
         {
           path:'',
-          element:<DashHome></DashHome>
+          element:<PrivateRoutes><DashHome></DashHome></PrivateRoutes>,
         },
+        {
+          path:"manage-users",
+          element: <PrivateRoutes><AdminRoute><ManageUsers></ManageUsers></AdminRoute></PrivateRoutes>,
+        },
+        {
+           path:"manage-agents",
+           element:<PrivateRoutes><AdminRoute><ManageAgents></ManageAgents></AdminRoute></PrivateRoutes>
+        },
+        {
+          path:"cash-in",
+          element:<PrivateRoutes><AgentRoute><CashIn></CashIn></AgentRoute> </PrivateRoutes>,
+        },
+        {
+          path:"cash-out",
+          element:<PrivateRoutes><CashOut></CashOut></PrivateRoutes>,
+        },
+        {
+          path:"send-money",
+          element:<PrivateRoutes><SendMoney></SendMoney></PrivateRoutes>
+        }
      ]
     },
   ]);

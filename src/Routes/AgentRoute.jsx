@@ -4,7 +4,7 @@ import Loading from "../Pages/shared/Loading";
 import useAgent from "../hooks/useAgent";
 
 
-const TutorRoute = ({children}) => {
+const AgentRoute = ({children}) => {
     const {user, loading } = useAuth();
     const [isAgent, isAgentLoading]= useAgent();
     if(loading || isAgentLoading){
@@ -16,4 +16,4 @@ const TutorRoute = ({children}) => {
     return  <Navigate to="/login" state={location?.pathname}> </Navigate>
 };
 
-export default TutorRoute;
+export default AgentRoute;

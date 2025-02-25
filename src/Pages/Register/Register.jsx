@@ -4,8 +4,10 @@ import { BsFillEyeFill } from "react-icons/bs";
 import { RiEyeCloseFill } from "react-icons/ri";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
+  const axiosPublic = useAxiosPublic();
   const { createUser, updateUser, setUser } = useAuth();
   const [showPin, setShowPin] = useState(false);
   const [err, setErr] = useState("");
@@ -21,7 +23,8 @@ const Register = () => {
     const phone = form.phone.value;
     const nid = form.nid.value;
     const role = form.role.value;
-    const user = { name, email, role, pin, password, phone, nid };
+    const status = ""
+    const balance = 0
     createUser(email, password)
     .then(res =>{
         const user = res.user;
@@ -29,24 +32,34 @@ const Register = () => {
 
         updateUser({displayName:name })
         .then(res =>{
-          navigate("/")
-          toast.success("Welcome ! Your successfull ", {
-            position: "top-center",
-            autoClose: 3000,
-          });
-  
+          const userInfo = {
+            name: name,
+            email:user.email,
+            nid: nid,
+            phone: phone,
+            role : role,
+            status: status,
+            pin : pin,
+            balance : balance,
+          }
+          axiosPublic.post('/users', userInfo)
+          .then(res=>{
+            if(res.data.insertedId){
+              navigate("/");
+              toast.success("Welcome ! Your Sign up successfull ", {
+                position: "top-center",
+                autoClose: 3000,
+              });
+            }
+          })
         })
         .catch(error =>{
           setErr(error)
-        })
-
+        });
     })
     .catch(error =>{
-        
        setErr(error.code);
     })
-  
-
   };
 
 

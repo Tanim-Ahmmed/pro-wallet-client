@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-base-100 pt-16">
+    <div className="min-h-screen bg-base-100 pt-16 ">
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-purple-50 -z-10" />
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] -z-10" />

@@ -78,7 +78,7 @@ const CashOut = () => {
                         type="submit"
                         className="w-full flex items-center justify-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:scale-[1.02] transition-all"
                       >
-                        Send Money
+                        Cash Out
                       </button>
                     </form>
                   </div>

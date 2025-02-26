@@ -52,7 +52,7 @@ const CashIn = () => {
 
     axiosSecure.post("/cashIn", transectionInfo).then((res) => {
       if (res.data.insertedId) {
-        toast.success("Cash In successfull ", {
+        toast.success(`${amount} Tk Cash In successfull to ${receiver}`, {
           position: "top-center",
           autoClose: 3000,
         });

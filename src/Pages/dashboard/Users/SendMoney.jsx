@@ -19,8 +19,8 @@ const SendMoney = () => {
             const form = e.target;
             const sender = currentUser?.phone;
             const receiver = form.phone.value;
-            const amount = Number(form.amount.value);
             const pin = form.pin.value;
+            const amount = Number(form.amount.value);
         
             const userAvailable = allUsers.find(
               (user) => user.phone === receiver && user.role === "user"
@@ -30,8 +30,14 @@ const SendMoney = () => {
               setErr("Amount must be greater than zero");
               return;
             }
+          
             if (currentUser?.pin !== pin) {
               setErr("Pin didn't match");
+              return;
+            }
+
+            if (sender === receiver) {
+              setErr("Can't send money to your won account");
               return;
             }
         
@@ -39,20 +45,28 @@ const SendMoney = () => {
               setErr("There is no users in this account");
               return;
             }
-        
-            if (currentUser?.balance < amount) {
-              setErr("insufficient Balance");
-              return;
+
+            if (amount >= 100) {
+              if (currentUser?.balance < amount + 5) {
+                setErr("Insufficient Balance");
+                return;
+              }
             }
+            
+              if (currentUser?.balance < amount ) {
+                setErr("insufficient Balance");
+                return;
+              }
+            
             const transectionInfo = {
               sender,
               receiver,
               amount,
             };
         
-            axiosPublic.post("/cashIn", transectionInfo).then((res) => {
+            axiosPublic.post("/sendMoney", transectionInfo).then((res) => {
               if (res.data.insertedId) {
-                toast.success("Cash In successfull ", {
+                toast.success(`${amount} Tk Send Money successfull To ${receiver}`, {
                   position: "top-center",
                   autoClose: 3000,
                 });

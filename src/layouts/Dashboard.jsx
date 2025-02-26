@@ -12,17 +12,25 @@ import {
   BsFillSendCheckFill,
 } from "react-icons/bs";
 import useCurrentUser from "../hooks/useCurrentUser";
+import { useState } from "react";
+import useAllUsers from "../hooks/useAllUsers";
 const Dashboard = () => {
   const { logOut } = useAuth();
+  const [blur, setBlur] = useState(true);
   const [currentUser] = useCurrentUser();
   const [isAdmin] = useAdmin();
   const [isAgent] = useAgent();
+  const [ allUsers ] = useAllUsers();
+  const totalBalance = allUsers?.reduce((sum, user) => sum + (user.balance || 0), 0);
 
+  const isBlur = () => {
+    setBlur((prev) => !prev);
+  };
   return (
     <div className="sm:flex bg-gradient-to-br from-indigo-50 to-purple-50">
       <div className="sm:w-64 sm:min-h-screen bg-base-200 pt-6">
         <div className="flex justify-between items-center p-4 bg-gray-100 shadow-md rounded-lg">
-          {/* Left Section */}
+         
           <div className="flex flex-col pl-4">
             <Link
               to="/"
@@ -46,12 +54,30 @@ const Dashboard = () => {
               {currentUser?.name}
             </p>
           </div>
-          <h2 className="text-lg font-semibold text-gray-700">
-        Balance: ${currentUser?.balance || "0.00"}
-      </h2>
-          </div>
-
-        
+          {
+            isAdmin? (
+         <div>
+         <h2 className="text-lg font-semibold text-gray-700">
+        Income : <span
+        className={`cursor-pointer ${blur ? 'blur' : ''} ml-2`}
+         onClick={isBlur}
+        >{currentUser?.totalIncome || "0.00"}</span> Tk
+        </h2>
+        <h2 className="text-lg font-semibold">
+          Total Balance: {totalBalance} Tk
+        </h2>
+        </div>
+            ) : (
+              <h2 className="text-lg font-semibold text-gray-700">
+              Balance: <span
+              className={`cursor-pointer ${blur ? 'blur' : ''} ml-2`}
+               onClick={isBlur}
+              >{currentUser?.balance || "0.00"}</span> Tk
+              </h2>
+            )
+          }
+          
+          </div> 
         </div>
 
         <div className="divider"></div>

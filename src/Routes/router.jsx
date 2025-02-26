@@ -17,6 +17,7 @@ import AdminRoute from "./AdminRoute";
 import AgentRoute from "./AgentRoute";
 import ManageAgents from "../Pages/dashboard/Admin/ManageAgents";
 import Transactions from "../Pages/Transactions/Transactions";
+import UsersTransactions from "../Pages/dashboard/Admin/UsersTransactions";
 
 
   export const router = createBrowserRouter([
@@ -54,6 +55,10 @@ import Transactions from "../Pages/Transactions/Transactions";
         {
            path:"manage-agents",
            element:<PrivateRoutes><AdminRoute><ManageAgents></ManageAgents></AdminRoute></PrivateRoutes>
+        },
+        {
+          path:"user-transactions/:phone",
+          element:<PrivateRoutes><AdminRoute><UsersTransactions></UsersTransactions></AdminRoute></PrivateRoutes>
         },
         {
           path:"cash-in",

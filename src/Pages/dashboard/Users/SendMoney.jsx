@@ -8,9 +8,9 @@ import useAllUsers from "../../../hooks/useAllUsers";
 
 
 const SendMoney = () => {
-  const axiosPublic = useAxiosPublic();
+     const axiosPublic = useAxiosPublic();
      const [showPin, setShowPin] = useState(false);
-     const [currentUser] = useCurrentUser();
+     const [currentUser, refetch] = useCurrentUser();
      const [allUsers] = useAllUsers();
      const [err, setErr] = useState("");
     const  handleSendMoney = (e) =>{
@@ -26,8 +26,8 @@ const SendMoney = () => {
               (user) => user.phone === receiver && user.role === "user"
             );
         
-            if (amount <= 0) {
-              setErr("Amount must be greater than zero");
+            if (amount < 50) {
+              setErr("Amount must be greater than 50");
               return;
             }
           
@@ -70,11 +70,15 @@ const SendMoney = () => {
                   position: "top-center",
                   autoClose: 3000,
                 });
+                form.reset();
+                refetch();
               }
             });
      }
     return (
         <div className="min-h-screen flex items-center justify-center">
+              {
+        currentUser.status === "approved"? (
              <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-gray-900">Send Money</h2>
@@ -145,6 +149,12 @@ const SendMoney = () => {
               </button>
             </form>
           </div>
+        ) : (
+          <h2 className="text-2xl p-4 font-extrabold bg-gradient-to-r from-purple-600 to-red-600 bg-clip-text text-transparent">
+          Your access has been temporarily restricted by the admin.
+          </h2>
+        )
+      }
         </div>
     );
 };

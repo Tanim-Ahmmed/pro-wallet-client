@@ -1,8 +1,27 @@
-# React + Vite
+# ProWallet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Site: [ProWallet Live](https://pro-wallet-6a52c.web.app/)  
+## Server Repository: [ProWallet Server](https://github.com/Tanim-Ahmmed/pro-wallet-server)  
 
-Currently, two official plugins are available:
+### Overview
+ProWallet is a modern and secure digital wallet system that allows users to manage transactions, store financial data, and access various wallet features with ease. The platform ensures security with JWT authentication, a responsive UI built using React, and a powerful backend with Node.js and MongoDB.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Features
+- Authentication & Authorization (JWT for secure access)  
+- Fast & Responsive UI (Built with React and Tailwind CSS)  
+- REST API Integration (Efficient backend communication)  
+- Protected Routes (Secure access control using JWT)  
+- State Management (React Context API/Redux)  
+- CRUD Operations (Manage user data seamlessly)  
+- Optimized Performance (Efficient API calls with Axios)  
+
+### Technologies Used
+- **Frontend:** React, Tailwind CSS, Axios, React Router  
+- **Backend:** Node.js, Express.js, MongoDB  
+- **Authentication:** Firebase, JWT  
+- **Deployment:** Vercel (Frontend), Render/Heroku (Backend)  
+
+### Installation
+1. Clone the repository:  
+   ```sh
+   git clone YOUR_REPO_LINK_HERE

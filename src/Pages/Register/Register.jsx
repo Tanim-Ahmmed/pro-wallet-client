@@ -29,7 +29,6 @@ const Register = () => {
     .then(res =>{
         const user = res.user;
         setUser(user);
-
         updateUser({displayName:name })
         .then(res =>{
           const userInfo = {

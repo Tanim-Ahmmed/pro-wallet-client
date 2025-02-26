@@ -16,6 +16,7 @@ import SendMoney from "../Pages/dashboard/Users/SendMoney";
 import AdminRoute from "./AdminRoute";
 import AgentRoute from "./AgentRoute";
 import ManageAgents from "../Pages/dashboard/Admin/ManageAgents";
+import Transactions from "../Pages/Transactions/Transactions";
 
 
   export const router = createBrowserRouter([
@@ -65,6 +66,10 @@ import ManageAgents from "../Pages/dashboard/Admin/ManageAgents";
         {
           path:"send-money",
           element:<PrivateRoutes><SendMoney></SendMoney></PrivateRoutes>
+        },
+        {
+          path:'transactions',
+          element: <PrivateRoutes><Transactions></Transactions> </PrivateRoutes>
         }
      ]
     },

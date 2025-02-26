@@ -5,9 +5,11 @@ import { RiEyeCloseFill } from "react-icons/ri";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAllUsers from "../../hooks/useAllUsers";
 
 const Register = () => {
   const axiosPublic = useAxiosPublic();
+  const [ allUsers ] = useAllUsers();
   const { createUser, updateUser, setUser } = useAuth();
   const [showPin, setShowPin] = useState(false);
   const [err, setErr] = useState("");
@@ -25,6 +27,26 @@ const Register = () => {
     const role = form.role.value;
     const status = ""
     const balance = 0
+    const isUserExists = allUsers?.some(
+      (user) => user.email === email || user.phone === phone || user.nid === nid
+    );
+
+    if (!/^\d{5}$/.test(pin)) {
+      setErr("PIN must be exactly 5 digits.");
+      return;
+    }
+
+    if (!/^\d{10}$/.test(nid)) {
+      setErr("NID must be exactly 10 digits.");
+      return;
+    }
+
+    if (isUserExists) {
+      setErr("User already exists with this email, phone or NID.");
+      return;
+    }
+  
+
     createUser(email, password)
     .then(res =>{
         const user = res.user;
@@ -112,7 +134,7 @@ const Register = () => {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                NID
+              NID (10 digits)
               </label>
               <input
                 name="nid"
@@ -125,7 +147,7 @@ const Register = () => {
 
             <div className="form-control relative">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Pin
+              Pin (5 digits)
               </label>
               <input
                 type={showPin ? "text" : "password"}

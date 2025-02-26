@@ -4,9 +4,11 @@ import { RiEyeCloseFill } from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import useAllUsers from "../../hooks/useAllUsers";
 
 const Login = () => {
    const { userLogin, setUser } = useAuth();
+   const [ allUsers ] = useAllUsers();
     const [showPin, setShowPin] = useState(false);
     const [err, setErr] = useState("");
     const navigate = useNavigate();
@@ -16,12 +18,17 @@ const Login = () => {
     const handleLogin = (e) =>{
       e.preventDefault();
       const form = e.target;
-      const email = form.email.value;
+      const phone = form.phone.value;
       const pin = form.pin.value;
       const password = `Secure${pin}`;
-
+      const existingUser = allUsers?.find(user => user.phone === phone);
+      if (!existingUser) {
+        setErr("No user found with this phone number.");
+        return;
+      }
+      const email = existingUser.email;
+      
       userLogin(email, password)
-
       .then(res => {
           const user = res.user;
           setUser(user);
@@ -54,23 +61,23 @@ const Login = () => {
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label
-                  htmlFor="email"
+                
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  Email address
+                  Mobile Number
                 </label>
                 <input
-                  type="email"
+                  type="number"
                   required
-                  name="email"
+                  name="phone"
                   className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
-                  placeholder="Enter your email"
+                  placeholder="Your Phone Number"
                 />
               </div>
 
               <div className="form-control relative">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Pin
+                  Pin (5 digits)
                 </label>
                 <input
                   type={showPin ? "text" : "password"}

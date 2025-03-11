@@ -3,7 +3,7 @@
 ## Live Site: [ProWallet Live](https://pro-wallet-6a52c.web.app/)  
 ## Server Repository: [ProWallet Server](https://github.com/Tanim-Ahmmed/pro-wallet-server)  
 
-## Admin Login Credentials
+## Admin Login Credential
 - **Number:** 01766045464
 - **Pin:** 12312
 
